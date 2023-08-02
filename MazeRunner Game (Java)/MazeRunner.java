@@ -49,6 +49,8 @@ public class MazeRunner {
 
 		}
 
+		scan.close();
+
 	}
 
 	// Functions
