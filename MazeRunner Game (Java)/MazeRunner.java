@@ -1,7 +1,6 @@
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
 
 public class MazeRunner {
 	public static int highscore = 0;
@@ -14,10 +13,10 @@ public class MazeRunner {
 		Scanner scan = new Scanner(System.in);
 		Boolean exit = true;
 		while (exit) {
+			//Printing Menu
 			System.out.println("\n-------- Maze Runner --------");
 			System.out.println("\na. Play Game\nb. Instructions\nc. Credits\nd. High Score\ne. Exit\n");
 			String menuinput = scan.nextLine();
-			// String menuinput = "a";
 			switch (menuinput) {
 				case "a":
 					boolean playAgain = false;
@@ -166,7 +165,7 @@ public class MazeRunner {
 				System.out.println("Time's up!\nYou Lose");
 				timeUp = true;
 			}
-		}, 15000);
+		}, 30000);
 		long start = System.currentTimeMillis();
 		while (end) {
 			PrintMaze(maze);
@@ -224,7 +223,7 @@ public class MazeRunner {
 	// 10. showInstructions():
 	public static void showInstructions() {
 		System.out.println(
-				"\n1.The maze will have walls (#) that are impassable obstacles, open paths (.) that you can move through, your starting position (P), and the exit point (E).\n\n2.Your moves will be considered valid if they do not hit any walls (#) or go outside the maze boundaries.\n\n3.The game will end only when you reach the exit (E).\n\n4.Move your player using (W/A/S/D).");
+				"\n1.The maze will have walls (#) that are impassable obstacles, open paths (.) that you can move through, your starting position (P), and the exit point (E).\n\n2.Your moves will be considered valid if they do not hit any walls (#) or go outside the maze boundaries.\n\n3.The game will end only when you reach the exit (E).\n\n4.Move your player using (W/A/S/D).\nYou have 30 seconds to complete or you lose.");
 	}
 
 	// 11. showCredits():
