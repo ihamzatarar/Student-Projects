@@ -20,7 +20,16 @@ public class MazeRunner {
 			// String menuinput = "a";
 			switch (menuinput) {
 				case "a":
-					playGame();
+					boolean playAgain = false;
+					do {
+						playAgain = false;
+						playGame();
+						System.out.println("Press y to play again or press any other key to go to menu");
+						char input1 = scan.next().charAt(0);
+						if (input1=='y'){
+							playAgain = true;
+						}
+					} while (playAgain);
 					break;
 				case "b":
 					showInstructions();
@@ -39,7 +48,6 @@ public class MazeRunner {
 			}
 
 		}
-		scan.close();
 
 	}
 
@@ -146,9 +154,7 @@ public class MazeRunner {
 		Scanner scan = new Scanner(System.in);
 		char[][] maze = initializeMaze(7);
 		int[] playerPosition = { 1, 1 };
-		score = 0;
-		numberOfSteps = 0;
-		timeTaken = 0;
+		score = 0;numberOfSteps = 0;timeTaken = 0;timeUp = false;
 		Boolean end = true;
 		Timer timer = new Timer();
 		timer.schedule(new TimerTask() {
@@ -159,8 +165,8 @@ public class MazeRunner {
 				timeUp = true;
 			}
 		}, 15000);
+		long start = System.currentTimeMillis();
 		while (end) {
-			long start = System.nanoTime();
 			PrintMaze(maze);
 			System.out.println("\nMove your player using (w/a/s/d) or press (n) to rest player position.\n");
 			String moveinput = scan.nextLine();
@@ -168,14 +174,16 @@ public class MazeRunner {
 				maze = movePlayer(moveinput, playerPosition, maze);
 			}
 			if (maze[0][0] == 'x' || timeUp == true) {
-				long endTime = System.nanoTime();
-				timeTaken = (endTime - start) /100000000;
+				if (timeUp == false) {
+				long endTime = System.currentTimeMillis();
+				timeTaken = (endTime - start)/1000;}
 				end = false;
 				updateScore();
 				displayResult();
 				timer.cancel();
 			}
 		}
+		
 
 		
 
@@ -189,17 +197,18 @@ public class MazeRunner {
 
 	// 9. updateScore()
 	public static void updateScore() {
-		if (timeTaken < 10) {
-			score += 200;
+		if (timeTaken <= 5 && timeTaken > 1) {
+			score = 300;
 		} else if (timeTaken <= 15 && timeTaken > 10) {
-			score += 150;	
+			score = 150;	
+		}else if (timeTaken <= 10 && timeTaken > 5) {
+			score = 200;	
 		}else if (timeTaken < 20 && timeTaken > 15) {
-			score += 100;	
+			score = 100;	
 		}
-		 else {
-			score += 500;
+		 else if (timeTaken > 20) {
+			score = 50;
 		}
-
 		if (score > highscore) {
 			highscore = score;
 		}
