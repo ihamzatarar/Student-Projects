@@ -23,7 +23,7 @@ public class MazeRunner {
 					do {
 						playAgain = false;
 						playGame();
-						System.out.println("Press y to play again or press any other key to go to menu");
+						System.out.println("\nPress y to play again or press any other key to go to menu");
 						char input1 = scan.next().charAt(0);
 						if (input1=='y'){
 							playAgain = true;
@@ -87,6 +87,16 @@ public class MazeRunner {
 		}
 	}
 
+	// 3. isValidMove
+	public static boolean isValidMove(int newX, int newY) {
+		char[][] maze = initializeMaze(7);
+		if (maze[newX][newY] == '#') {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
 	// 4. movePlayer
 	public static char[][] movePlayer(String move, int[] pPosition, char[][] maze) {
 		int[] oldpPosition = { pPosition[0], pPosition[1] };
@@ -104,7 +114,8 @@ public class MazeRunner {
 				pPosition[1]++;
 				break;
 			case "n":
-				return startNewGame();
+				maze[0][0] = 'n';
+				return maze;
 			default:
 				System.out.println("\nInvaild Move! Enter Again");
 				return maze;
@@ -128,15 +139,6 @@ public class MazeRunner {
 		return maze;
 	}
 
-	// 3. isValidMove
-	public static boolean isValidMove(int newX, int newY) {
-		char[][] maze = initializeMaze(7);
-		if (maze[newX][newY] == '#') {
-			return false;
-		} else {
-			return true;
-		}
-	}
 
 	// 5. hasPlayerWon()
 
@@ -152,11 +154,13 @@ public class MazeRunner {
 	// 6. playGame
 	public static void playGame() {
 		System.out.println("\nNew Game Started\n");
-		Scanner scan = new Scanner(System.in);
+		Scanner scan1 = new Scanner(System.in);
 		char[][] maze = initializeMaze(7);
 		int[] playerPosition = { 1, 1 };
 		score = 0;numberOfSteps = 0;timeTaken = 0;timeUp = false;
 		Boolean end = true;
+
+		// Timer
 		Timer timer = new Timer();
 		timer.schedule(new TimerTask() {
 			@Override
@@ -169,13 +173,13 @@ public class MazeRunner {
 		long start = System.currentTimeMillis();
 		while (end) {
 			PrintMaze(maze);
-			System.out.println("\nMove your player using (w/a/s/d) or press (n) to rest player position.\n");
-			String moveinput = scan.nextLine();
+			System.out.println("\nMove your player using (w/a/s/d) or press (n) to start new game.\n");
+			String moveinput = scan1.nextLine();
 			if (timeUp == false) {
-				maze = movePlayer(moveinput, playerPosition, maze);
+				maze = movePlayer(moveinput, playerPosition, maze);	
 			}
-			if (maze[0][0] == 'x' || timeUp == true) {
-				if (timeUp == false) {
+			if (maze[0][0] == 'x' || timeUp == true || maze[0][0] == 'n') {
+				if (timeUp == false && maze[0][0] != 'n') {
 				long endTime = System.currentTimeMillis();
 				timeTaken = (endTime - start)/1000;}
 				end = false;
@@ -185,9 +189,6 @@ public class MazeRunner {
 			}
 		}
 		
-
-		
-
 
 	}
 
@@ -223,7 +224,7 @@ public class MazeRunner {
 	// 10. showInstructions():
 	public static void showInstructions() {
 		System.out.println(
-				"\n1.The maze will have walls (#) that are impassable obstacles, open paths (.) that you can move through, your starting position (P), and the exit point (E).\n\n2.Your moves will be considered valid if they do not hit any walls (#) or go outside the maze boundaries.\n\n3.The game will end only when you reach the exit (E).\n\n4.Move your player using (W/A/S/D).\nYou have 30 seconds to complete or you lose.");
+				"\n1.The maze will have walls (#) that are impassable obstacles, open paths (.) that you can move through, your starting position (P), and the exit point (E).\n\n2.Your moves will be considered valid if they do not hit any walls (#) or go outside the maze boundaries.\n\n3.The game will end only when you reach the exit (E).\n\n4.Move your player using (W/A/S/D).\n\n5. You have 30 seconds to complete or you lose.");
 	}
 
 	// 11. showCredits():
