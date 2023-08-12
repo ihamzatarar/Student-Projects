@@ -1,4 +1,3 @@
-package LexicalAnalyzer.files;
 /***** in1.java *****/
 
 // defining imports
