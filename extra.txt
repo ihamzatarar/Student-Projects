@@ -1,0 +1,180 @@
+package LexicalAnalyzer;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class test {
+    
+    public static void main(String[] args) throws IOException {
+        // variable declaration
+        int ch;
+
+
+        // check if File exists or not
+        FileReader fr = null;
+        try {
+            fr = new FileReader("LexicalAnalyzer/int1.java");
+            
+            // read from FileReader till the end of file
+            while ((ch = fr.read()) != -1) {
+                System.out.print((char) ch);
+            }
+
+            // close the file
+            fr.close();
+        } catch (FileNotFoundException fe) {
+            System.out.println("File not found");
+        }
+    }
+}
+
+
+import java.io.*;
+
+public class test {
+    // Class variable to hold the modified file content
+    private static StringBuilder modifiedContent = new StringBuilder();
+
+    public static void main(String[] args) throws IOException {
+        // Check if File exists or not
+        BufferedReader reader = null;
+        BufferedWriter writer = null;
+        try {
+            reader = new BufferedReader(new FileReader("test.txt"));
+            writer = new BufferedWriter(new FileWriter("output.txt"));
+
+            // Read each line from the file
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Remove '*' characters and append to the class variable
+                String modifiedLine = line.replace("*", "");
+                modifiedContent.append(modifiedLine).append('\n');
+            }
+
+            // Close the input file
+            reader.close();
+
+            // Write the modified content to the output file
+            writer.write(modifiedContent.toString());
+            writer.close();
+
+            System.out.println("Modified content saved to 'output.txt'");
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+}
+
+
+
+package LexicalAnalyzer;
+
+import java.io.*;
+
+public class test {
+    // Class variable to hold the modified file content
+    private static StringBuilder modifiedContent = new StringBuilder();
+
+    public static void main(String[] args) throws IOException {
+        // Check if File exists or not
+        BufferedReader reader = null;
+        BufferedWriter writer = null;
+        try {
+            reader = new BufferedReader(new FileReader("test.txt"));
+            writer = new BufferedWriter(new FileWriter("output.txt"));
+
+            // Read each line from the file
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Remove '*' characters and append to the class variable
+                String modifiedLine = line.replace("*", "");
+                modifiedContent.append(modifiedLine).append('\n');
+            }
+
+            // Close the input file
+            reader.close();
+
+            // Write the modified content to the output file
+            writer.write(modifiedContent.toString());
+            writer.close();
+
+            System.out.println("Modified content saved to 'output.txt'");
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+}
+
+
+import java.io.*;
+import java.util.*;
+
+public class Test {
+    private String fileContent;
+
+    public Test(String filePath) throws IOException {
+        fileContent = readContentFromFile(filePath);
+    }
+
+    private String readContentFromFile(String filePath) throws IOException {
+        StringBuilder content = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                content.append(line).append(System.lineSeparator());
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading the file: " + e.getMessage());
+            throw e;
+        }
+        return content.toString();
+    }
+
+    public void modifyContent() {
+        // Perform modifications on fileContent as needed
+        fileContent += "// Modified by Test class" + System.lineSeparator();
+    }
+
+    public void processLines() {
+        // Split fileContent into lines
+        String[] lines = fileContent.split(System.lineSeparator());
+
+        // Variable to keep track of whether we are inside a quoted section
+        boolean insideQuotes = false;
+
+        for (String line : lines) {
+            // Check if the line contains an opening quote (")
+            if (line.contains("\"")) {
+                // Toggle the insideQuotes flag
+                insideQuotes = !insideQuotes;
+            }
+
+            // Process the line only if we are not inside a quoted section
+            if (!insideQuotes) {
+                System.out.println("Processing line: " + line);
+            }
+        }
+    }
+
+    public void saveModifiedContent(String outputPath) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputPath))) {
+            writer.write(fileContent);
+        } catch (IOException e) {
+            System.out.println("Error writing to the file: " + e.getMessage());
+            throw e;
+        }
+    }
+
+    public static void main(String[] args) {
+        try {
+            Test test = new Test("input.txt");
+            test.modifyContent();
+            test.processLines();
+            test.saveModifiedContent("output.txt");
+            System.out.println("Modified content saved to 'output.txt'");
+        } catch (IOException e) {
+            System.out.println("An error occurred: " + e.getMessage());
+        }
+    }
+}
