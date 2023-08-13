@@ -87,7 +87,7 @@ public class Preprocessor {
 
         String[] lines = fileContent.split("!\n");
         for (String line : lines) {
-            if(!line.contains("import") || !line.contains("@")){
+            if(!line.contains("import")){
                 this.tempFileContent += line.trim() + "!\n";
             }
             }
