@@ -6,14 +6,14 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class fileManagment {
+public class FileManagment {
     
     // Variables to save file content
     protected String fileContent = new String();
     protected String tempFileContent = new String();
     public String fileName;
 
-    public fileManagment(String fileName) {
+    public FileManagment(String fileName) {
         this.fileName = fileName;
     }
 
