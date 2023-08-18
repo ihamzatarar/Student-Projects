@@ -166,7 +166,7 @@ public class MazeRunner {
 			@Override
 			public void run() {
 				// This code will be executed when the timer runs out
-				System.out.println("Time's up!\nYou Lose");
+				System.out.println("Time's up!\nYou Lose. Enter any key to see result.");
 				timeUp = true;
 			}
 		}, 30000);
