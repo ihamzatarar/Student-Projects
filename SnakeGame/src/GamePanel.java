@@ -15,12 +15,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     
     //loading Images
 
-    private ImageIcon snaketitle = new ImageIcon(getClass().getResource("images/snaketitle.jpg"));
-    private ImageIcon snakeimage = new ImageIcon(getClass().getResource("images/snakeimage.png"));
-    private ImageIcon appleimage = new ImageIcon(getClass().getResource("images/enemy.png"));
+    private ImageIcon snaketitle = new ImageIcon(getClass().getResource("assets/images/snaketitle.jpg"));
+    private ImageIcon snakeimage = new ImageIcon(getClass().getResource("assets/images/snakeimage.png"));
+    private ImageIcon appleimage = new ImageIcon(getClass().getResource("assets/images/enemy.png"));
     private ScoringSystem scoreSys = new ScoringSystem();
     private Snake snake = new Snake();
     private Apple apple = new Apple(snake);
+    private Sounds sounds = new Sounds();
 
 
     private Timer timer;
@@ -36,6 +37,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
         timer = new Timer(delay, this);
         timer.start();
+        sounds.playMusic();
     }
 
     @Override
@@ -183,6 +185,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
     public void CollisionWithApple(){
         if(snake.SnakeXlength[0]==apple.Xcord && snake.SnakeYlength[0] == apple.Ycord){
+            sounds.playEatSound();
             apple.newApple(snake);
             snake.lengthOfSnake++;
             scoreSys.incrScorce();

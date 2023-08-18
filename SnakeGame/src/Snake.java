@@ -14,16 +14,16 @@ public class Snake {
     protected ImageIcon getHeadIcon(){
 
         if (this.isRight()){
-            return new ImageIcon(getClass().getResource("images/rightmouth.png"));
+            return new ImageIcon(getClass().getResource("assets/images/rightmouth.png"));
         }
         else if (this.isLeft()){
-            return new ImageIcon(getClass().getResource("images/leftmouth.png"));
+            return new ImageIcon(getClass().getResource("assets/images/leftmouth.png"));
         }
         else if (this.isUp()){
-            return new ImageIcon(getClass().getResource("images/upmouth.png"));
+            return new ImageIcon(getClass().getResource("assets/images/upmouth.png"));
         }
         else if (this.isDown()){
-            return new ImageIcon(getClass().getResource("images/downmouth.png"));
+            return new ImageIcon(getClass().getResource("assets/images/downmouth.png"));
         }
         else{
             return null;
