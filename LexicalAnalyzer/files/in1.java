@@ -19,7 +19,7 @@ public class in1 {
           /*declaring variables*/
             double k = 3.4;
             int j = 2  ;  
-            int      motor   = 0, sensorValue =        0      ;
+            int      motor   = 0, sensorValue =        0      ; //gwefhtgfdrft
             if (motor    == 1)
             {
                      sensorValue++;

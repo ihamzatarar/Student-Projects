@@ -36,7 +36,7 @@ public class Preprocessor extends FileManagment {
                     modifiedLine = line.substring(0, slashIndex);
                 }
                 if (modifiedLine.trim() != ""){
-                    this.tempFileContent += line + "!\n";
+                    this.tempFileContent += modifiedLine + "!\n";
                 }
             }
         this.fileContent = tempFileContent;
