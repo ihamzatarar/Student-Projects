@@ -2,6 +2,17 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
+/**
+ * Sounds.java 
+ *
+ * @version     1.0.0
+ * @university  Forman Christian College
+ * @course      CSCS 290 (Java)
+ * @project     Snake Game
+ * @category    OOP Based Game Using Java Swing
+ * @author      Hamza Tarar
+ */
+
 public class Sounds {
 
     protected Clip eatSound;
