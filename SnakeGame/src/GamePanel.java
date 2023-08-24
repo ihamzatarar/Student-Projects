@@ -34,6 +34,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     private ImageIcon snaketitle = new ImageIcon(getClass().getResource("assets/images/snaketitle.jpg"));
     private ImageIcon snakeimage = new ImageIcon(getClass().getResource("assets/images/snakeimage.png"));
     private ImageIcon appleimage = new ImageIcon(getClass().getResource("assets/images/enemy.png"));
+    private ImageIcon customicon = new ImageIcon(getClass().getResource("assets/images/Logo.png"));
     private ScoringSystem scoreSys = new ScoringSystem();
     private Snake snake = new Snake();
     private Apple apple = new Apple(snake);
@@ -269,7 +270,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     
         // Difficulty ComboBox
         JPanel difficultyPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JLabel difficultyLabel = new JLabel("Select difficulty level:");
+        JLabel difficultyLabel = new JLabel("Select difficulty level:       ");
         String[] difficultyLevels = {"Easy", "Medium", "Hard"};
         difficultyComboBox = new JComboBox<>(difficultyLevels);
         difficultyComboBox.setSelectedIndex(1); // Set the default difficulty to "Medium"
@@ -281,8 +282,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     
         JLabel infoLabel = new JLabel("Enter your name and select a difficulty level to start the game");
         panel.add(infoLabel);
+
+        // Custom PNG icon
+        int result = JOptionPane.showConfirmDialog(null, panel, "Login", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, customicon);
+
     
-        int result = JOptionPane.showConfirmDialog(null, panel, "Login", JOptionPane.OK_CANCEL_OPTION);
     
         if (result == JOptionPane.OK_OPTION) {
             playerName = textField.getText();
@@ -299,14 +303,13 @@ private void handleDifficultyChange() {
     int selectedDifficulty = difficultyComboBox.getSelectedIndex();
     switch (selectedDifficulty) {
         case 0: // Easy
-            delay = 200; // Adjust game parameters for easy difficulty
+            delay = 200; 
             break;
         case 1: // Medium
-            delay = 100; // Adjust game parameters for medium difficulty
+            delay = 100; 
             break;
         case 2: // Hard
-            delay = 50; // Adjust game parameters for hard difficulty
-            break;
+            delay = 50; 
     }
 
 }
