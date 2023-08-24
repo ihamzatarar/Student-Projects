@@ -1,15 +1,31 @@
 
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.Timer;
+import javax.swing.JComboBox;
+
+/**
+ * GamePanel.java
+ *
+ * @version     1.0.0
+ * @university  Forman Christian College
+ * @course      CSCS 290 (Java)
+ * @project     Snake Game
+ * @category    OOP Based Game Using Java Swing
+ * @author      Hamza Tarar
+ */
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
     
@@ -23,12 +39,21 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     private Apple apple = new Apple(snake);
     private Sounds sounds = new Sounds();
 
-
+    private String playerName;
     private Timer timer;
     private int delay = 100;
     private boolean gameOver = false;
+    private JComboBox<String> difficultyComboBox;
+
 
     GamePanel(){
+        playerName = showLoginDialog();
+       handleDifficultyChange();
+
+        if (playerName == null || playerName.isEmpty()) {
+            // Handle the case where the player didn't enter a name or canceled
+            // You can choose to exit the game or handle it differently
+            System.exit(0);}
 
         //Enabling Key listener
         addKeyListener(this);
@@ -93,14 +118,33 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
             g.setFont(new Font("Arial",Font.PLAIN, 20));
             g.drawString("Press SPACE to restart", 320, 350);
+
+            g.setFont(new Font("Arial",Font.PLAIN, 15));
+            g.drawString("Your Score is " + scoreSys.getScore(), 320, 400);
+
+
         }
 
         //Drawings Stats
         g.setColor(Color.WHITE);
         g.setFont(new Font("Arial",Font.PLAIN, 14));
-        g.drawString("Score: "+ scoreSys.scorce, 750, 30);
+        g.drawString("Score: "+ scoreSys.score, 750, 30);
         g.drawString("Length: "+ snake.lengthOfSnake, 750, 50);
 
+
+        g.drawString("High Score: ", 50, 45);
+        int y = 25;
+        int i = 1;
+        for (String score : scoreSys.highScore){
+            g.drawString(i + ". " + score, 150, y);
+            y += 15;
+            i++;
+        }
+        
+
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Arial",Font.PLAIN, 14));
+        g.drawString("v-1.0 Developed By Hamza Tarar", 330, 675);
 
         //Delete all the painted things
         g.dispose();
@@ -188,7 +232,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
             sounds.playEatSound();
             apple.newApple(snake);
             snake.lengthOfSnake++;
-            scoreSys.incrScorce();
+            scoreSys.incrScore();
         }
     }
 
@@ -203,6 +247,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 
     public void restartGame(){
+        scoreSys.updateHighScores(playerName);
         gameOver=false;
         scoreSys.resetScore();
         snake.lengthOfSnake =3;
@@ -210,5 +255,61 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         timer.start();
         repaint();
     }
+
+    private String showLoginDialog() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(3, 1)); // Use GridLayout with 3 rows
+    
+        // Name input components
+        JPanel namePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JLabel nameLabel = new JLabel("Enter your name:");
+        JTextField textField = new JTextField(20);
+        namePanel.add(nameLabel);
+        namePanel.add(textField);
+    
+        // Difficulty ComboBox
+        JPanel difficultyPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JLabel difficultyLabel = new JLabel("Select difficulty level:");
+        String[] difficultyLevels = {"Easy", "Medium", "Hard"};
+        difficultyComboBox = new JComboBox<>(difficultyLevels);
+        difficultyComboBox.setSelectedIndex(1); // Set the default difficulty to "Medium"
+        difficultyPanel.add(difficultyLabel);
+        difficultyPanel.add(difficultyComboBox);
+    
+        panel.add(namePanel);
+        panel.add(difficultyPanel);
+    
+        JLabel infoLabel = new JLabel("Enter your name and select a difficulty level to start the game");
+        panel.add(infoLabel);
+    
+        int result = JOptionPane.showConfirmDialog(null, panel, "Login", JOptionPane.OK_CANCEL_OPTION);
+    
+        if (result == JOptionPane.OK_OPTION) {
+            playerName = textField.getText();
+            return playerName;
+        } else {
+            // Handle cancellation or closing of the dialog
+            return null;
+        }
+    }
+    
+
+
+private void handleDifficultyChange() {
+    int selectedDifficulty = difficultyComboBox.getSelectedIndex();
+    switch (selectedDifficulty) {
+        case 0: // Easy
+            delay = 200; // Adjust game parameters for easy difficulty
+            break;
+        case 1: // Medium
+            delay = 100; // Adjust game parameters for medium difficulty
+            break;
+        case 2: // Hard
+            delay = 50; // Adjust game parameters for hard difficulty
+            break;
+    }
+
+}
+
 
 }

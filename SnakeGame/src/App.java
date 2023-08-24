@@ -1,6 +1,16 @@
 import java.awt.Color;
 
 import javax.swing.JFrame;
+/**
+ * App.java 
+ *
+ * @version     1.0.0
+ * @university  University Forman Christian College
+ * @course      CSCS 290 (Java)
+ * @project     Snake Game
+ * @category    OOP Based Game Using Java Swing
+ * @author      Hamza Tarar
+ */
 
 public class App {
     public static void main(String[] args) throws Exception {
