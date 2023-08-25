@@ -42,4 +42,4 @@ Screenshots
 
 
 ## Acknowledgments
-This Snake Game project is inspired by the classic Snake game that has entertained gamers for decades. Special thanks to the Java programming community and the developers of Java Swing libraries for making this project possible.
+This Snake Game project is inspired by the classic Snake game that has entertained gamers for decades. Special thanks to Mukul Saini and the Java programming community and the developers of Java Swing libraries for making this project possible.I got motivated to make this project after watching this video https://www.youtube.com/watch?v=plzwQzH6Vqo&t=14s&ab_channel=MukulSainiSkills.
