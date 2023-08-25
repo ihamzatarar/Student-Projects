@@ -20,21 +20,22 @@ public class Snake {
     protected int[] SnakeYlength = new int[750];
 
     protected int lengthOfSnake = 3;
+    protected Images images = new Images();
 
 
     protected ImageIcon getHeadIcon(){
 
         if (this.isRight()){
-            return new ImageIcon(getClass().getResource("assets/images/rightmouth.png"));
+            return images.rightmouth;
         }
         else if (this.isLeft()){
-            return new ImageIcon(getClass().getResource("assets/images/leftmouth.png"));
+            return images.leftmouth;
         }
         else if (this.isUp()){
-            return new ImageIcon(getClass().getResource("assets/images/upmouth.png"));
+            return images.upmouth;
         }
         else if (this.isDown()){
-            return new ImageIcon(getClass().getResource("assets/images/downmouth.png"));
+            return images.downmouth;
         }
         else{
             return null;

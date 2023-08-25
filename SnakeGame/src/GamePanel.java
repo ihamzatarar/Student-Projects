@@ -31,14 +31,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     
     //loading Images
 
-    private ImageIcon snaketitle = new ImageIcon(getClass().getResource("assets/images/snaketitle.jpg"));
-    private ImageIcon snakeimage = new ImageIcon(getClass().getResource("assets/images/snakeimage.png"));
-    private ImageIcon appleimage = new ImageIcon(getClass().getResource("assets/images/enemy.png"));
-    private ImageIcon customicon = new ImageIcon(getClass().getResource("assets/images/Logo.png"));
     private ScoringSystem scoreSys = new ScoringSystem();
     private Snake snake = new Snake();
     private Apple apple = new Apple(snake);
     private Sounds sounds = new Sounds();
+    private Images images = new Images();
 
     private String playerName;
     private Timer timer;
@@ -52,8 +49,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
        handleDifficultyChange();
 
         if (playerName == null || playerName.isEmpty()) {
-            // Handle the case where the player didn't enter a name or canceled
-            // You can choose to exit the game or handle it differently
             System.exit(0);}
 
         //Enabling Key listener
@@ -74,7 +69,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         //Title border
         g.drawRect(24, 10, 851, 55);
         //Setting title Image 
-        snaketitle.paintIcon(this, g, 25, 11);
+        images.snaketitle.paintIcon(this, g, 25, 11);
         
 
         //Main Game border
@@ -106,11 +101,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         
         //Drawing Body
         for(int i=1;i<snake.lengthOfSnake;i++){
-            snakeimage.paintIcon(this, g, snake.SnakeXlength[i], snake.SnakeYlength[i]);
+            images.snakeimage.paintIcon(this, g, snake.SnakeXlength[i], snake.SnakeYlength[i]);
         }
 
         //Drawing Apple
-        appleimage.paintIcon(this, g, apple.Xcord,apple.Ycord );
+        images.appleimage.paintIcon(this, g, apple.Xcord,apple.Ycord );
 
         if(gameOver){
             g.setColor(Color.WHITE);
@@ -259,7 +254,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
     private String showLoginDialog() {
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(3, 1)); // Use GridLayout with 3 rows
+        panel.setLayout(new GridLayout(3, 1));
     
         // Name input components
         JPanel namePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -284,7 +279,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         panel.add(infoLabel);
 
         // Custom PNG icon
-        int result = JOptionPane.showConfirmDialog(null, panel, "Login", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, customicon);
+        int result = JOptionPane.showConfirmDialog(null, panel, "Login", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, images.customicon);
 
     
     
@@ -292,7 +287,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
             playerName = textField.getText();
             return playerName;
         } else {
-            // Handle cancellation or closing of the dialog
             return null;
         }
     }
